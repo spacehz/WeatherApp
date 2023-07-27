@@ -1,20 +1,51 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import Tabs from "./src/components/Tabs";
+import { ActivityIndicator } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { useGetWeather } from "./src/hooks/useGetWeather";
 
-export default function App() {
+
+
+//api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
+const App = () => {
+  const [loading, error, weather] = useGetWeather()
+  console.log(loading, error, weather)
+
+
+  if (weather && weather.list) {
+    return (
+      <NavigationContainer>
+        <Tabs weather={weather} />
+        {/* <Counter /> */}
+      </NavigationContainer>
+    )
+  }
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+      <ActivityIndicator size="large" color="blue" />
 
+    </View>
+  )
+
+
+
+
+
+
+
+
+
+
+}
 const styles = StyleSheet.create({
   container: {
+    justifyContent: "center",
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  }
+})
+
+
+
+export default App;
