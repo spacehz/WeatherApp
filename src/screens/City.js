@@ -2,26 +2,28 @@ import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet, Text, ImageBackground, StatusBar, View } from 'react-native'
 import IconText from '../components/IconText';
+import moment from 'moment';
 
-const City = () => {
+const City = ({ weatherData }) => {
     const { container, cityName, countryName, cityText, populationWrapper, rowLayout, populationText, riseSetText, riseSetWrapper, imageLayout } = styles
+    const { name, country, population, sunrise, sunset } = weatherData
     return (
 
         <SafeAreaView style={container} edges={[]}>
             <ImageBackground source={require('../../assets/city-background.jpg')} style={imageLayout}>
-                <Text style={[cityName, cityText]}>London</Text>
-                <Text style={[countryName, cityText]}>UK</Text>
+                <Text style={[cityName, cityText]}>{name}</Text>
+                <Text style={[countryName, cityText]}>{country}</Text>
                 <View style={[populationWrapper, rowLayout]} >
 
-                    <IconText iconName={"user"} size={50} iconColor={'red'} bodyText={"22000"} bodyTextStyles={populationText} />
+                    <IconText iconName={"user"} size={50} iconColor={'red'} bodyText={`Population: ${population}`} bodyTextStyles={populationText} />
                 </View>
 
                 <View style={[riseSetWrapper, rowLayout]}>
 
-                    <IconText iconName={"sunrise"} size={50} iconColor={'white'} bodyText={"10:34:23am"} bodyTextStyles={riseSetText} />
+                    <IconText iconName={"sunrise"} size={50} iconColor={'white'} bodyText={moment(sunrise).format('h:mm:ss a')} bodyTextStyles={riseSetText} />
 
 
-                    <IconText iconName={"sunset"} size={50} iconColor={'white'} bodyText={"18:22:25pm"} bodyTextStyles={riseSetText} />
+                    <IconText iconName={"sunset"} size={50} iconColor={'white'} bodyText={moment(sunset).format('h:mm:ss a')} bodyTextStyles={riseSetText} />
 
                 </View>
             </ImageBackground>

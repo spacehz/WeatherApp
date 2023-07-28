@@ -10,7 +10,8 @@ import { useGetWeather } from "./src/hooks/useGetWeather";
 //api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
 const App = () => {
   const [loading, error, weather] = useGetWeather()
-  console.log(loading, error, weather)
+  console.log(loading, error)
+  console.log(weather)
 
 
   if (weather && weather.list) {
